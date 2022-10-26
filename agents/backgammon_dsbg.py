@@ -140,10 +140,28 @@ class BackgammonPlayer:
     # Hint: Look at game_engine/boardState.py for a board state properties you can use.
     def staticEval(self, state):
         # TODO: return a number for the given state
-        count = len(state.white_off)*100 - len(state.red_off)*100
+        count = len(state.white_off)*1000 - len(state.red_off)*1000
+        whitepip = 0
+        redpip = 0
+        whitesolo = 0
+        redsolo = 0
         for i in range(len(state.pointLists)):
             for j in range(len(state.pointLists[i])):
-                if state.pointLists[i][j] == 'W':
-                    count += 100 / (26 - i)
+                if state.pointLists[i][j] == 0:
+                    whitepip += (24 - i)
+                    if len(state.pointLists[i]) == 1:
+                           whitesolo += 1
                 else:
-                    count += 100 / (i - 26)
+                    redpip += i
+                    if len(state.pointLists[i]) == 1:
+                           redsolo += 1
+        count += (redpip-whitepip)*10
+        count -= whitesolo*10
+        count += redsolo*10
+        if (len(state.bar) > 0):
+            if state.bar[0] == 0:
+                count -= 500 * len(state.bar)
+            else:
+                count += 500 * len(state.bar)
+        return count
+        
