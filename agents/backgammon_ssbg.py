@@ -55,14 +55,12 @@ class BackgammonPlayer:
         return best_move
 
     def move_helper(self, state, currentPly, who):
-        if (currentPly == self.maxply):
-            score = 0
-            if state in self.zob:
-                return self.zob[state]
-            else:
-                score = self.static_eval(state)
-                self.zob[state] = score
-                return score
+        if state in self.zob:
+            return self.zob[state]
+        elif (currentPly == self.maxply):
+            score = self.static_eval(state)
+            self.zob[state] = score
+            return score
         else:
             potential = 0
             for i in range(1,7):
@@ -71,8 +69,8 @@ class BackgammonPlayer:
                     moves = self.get_all_possible_moves()
                     if who == 0:
                         potential += max([BackgammonPlayer.move_helper(self, move[1], currentPly+1, 1-who) for move in moves])
-                    elif who == 1:
-                        potential += min([BackgammonPlayer.move_helper(self, move[1], currentPly+1, 1-who, die1, die2) for move in moves])
+                    else:
+                        potential += min([BackgammonPlayer.move_helper(self, move[1], currentPly+1, 1-who) for move in moves])
             return potential/36
 
 

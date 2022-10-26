@@ -9,11 +9,11 @@ import sys
 
 # Below are the agents used in "Play Offline"
 # To change, simply add an import and change p1 or p2 to desired Agent
-from agents import randomAgent, SkeletonAgent, backgammon_dsbg
-player1 = backgammon_dsbg.BackgammonPlayer()
-player2 = SkeletonAgent.BackgammonPlayer()
+from agents import randomAgent, SkeletonAgent, backgammon_dsbg, backgammon_ssbg
+player1 = backgammon_ssbg.BackgammonPlayer()
+player2 = randomAgent.BackgammonPlayer()
 
-DETERMINISTIC = True  # deterministic version: dice are loaded to give 1 and 6
+DETERMINISTIC = False  # deterministic version: dice are loaded to give 1 and 6
 # stochastic version (DETERMINISTIC = false): dice are rolled normally.
 
 
